@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"  # Expose Jenkins UI on localhost:8080
+      - "50000:50000"  # Port for agent communication
+    user: root
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    environment:
+      JENKINS_USER: "admin"
+      JENKINS_PASSWORD: "admin"
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false" # Skip initial setup wizard (optional)
+
+volumes:
+  jenkins_home:
